@@ -1,0 +1,144 @@
+﻿@model Recruiter_Manager.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Recruiters" asp-action="Create">Add New Recruiter</a>
+</p>
+@if(Model.Recruiters != null)
+{
+    <table class="recruitertable">
+    <thead>
+        <tr>
+            <th>
+                <center>First Name</center>
+            </th>
+            <th>
+                <center>Last Name</center>
+            </th>
+            <th>
+                <center>Email</center>
+            </th>
+            <th>
+                <center>Phone Number</center>
+            </th>
+            <th>
+                <center>Company Name</center>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Recruiters)
+        {
+            <tr>
+                <td>
+                    <center>@Html.DisplayFor(modelItem => item.FirstName)</center>
+                </td>
+                <td>
+                    <center>@Html.DisplayFor(modelItem => item.LastName)</center>
+                </td>
+                <td>
+                    <center>@Html.DisplayFor(modelItem => item.Email)</center>
+                </td>
+                <td>
+                    <center>@Html.DisplayFor(modelItem => item.PhoneNumber)</center>
+                </td>
+                <td>
+                    <center>@Html.DisplayFor(modelItem => item.CompanyName)</center>
+                </td>
+                <td>
+                    <a asp-controller="Recruiters" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Recruiters" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Recruiters" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+<br />
+<p>
+    <a asp-controller="JobPostings" asp-action="Create">Add Job Posting</a>
+</p>
+@if (Model.JobPostings != null)
+{
+    <table class="jobtable">
+        <thead>
+            <tr>
+                <th>
+                    <center>Job Title</center>
+                </th>
+                <th>
+                    <center>Company Name</center>
+                </th>
+                <th>
+                    <center>Posted Compensation</center>
+                </th>
+                <th>
+                    <center>Application Date</center>
+                </th>
+                <th>
+                    <center>Application Status</center>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.JobPostings)
+            {
+                <tr>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.JobTitle)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.CompanyName)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.PostedComp)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.DateApplied)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.ApplicationStatus)</center>
+                    </td>
+                    <td>
+                        <a asp-controller="JobPostings" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="JobPostings" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="JobPostings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>*@
+
