@@ -73,7 +73,7 @@ namespace Recruiter_Manager.Controllers
                 recruiter.CustomerId = customer.Id;
                 _context.Add(recruiter);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Customers");
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", recruiter.CustomerId);
             return RedirectToAction("Index","Customers");

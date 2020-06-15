@@ -25,11 +25,6 @@ namespace Recruiter_Manager.ActionFilters
                     context.Result = new RedirectToActionResult("Index",
                     "Customers", null);
                 }
-                else if (_claimsPrincipal.IsInRole("Employee"))
-                {
-                    context.Result = new RedirectToActionResult("Index",
-                    "Employees", null);
-                }
             }
         }
         public void OnActionExecuted(ActionExecutedContext context)

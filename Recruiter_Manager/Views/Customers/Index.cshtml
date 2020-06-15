@@ -6,67 +6,75 @@
 }
 
 <h1>Index</h1>
-
+<div class="salarySearch">
+    <form method="get">
+        <span class="form-group">
+            <input class="City" placeholder="City"/>
+            <input class="JobTitle" placeholder="Job Title" />
+        </span>
+        <button type="submit" class="btn btn-primary" onclick="getSalaries()">Compare Salary</button>
+    </form>
+</div>
+<div class="salaryDisplay">   
+</div>
 <p>
     <a asp-controller="Recruiters" asp-action="Create">Add New Recruiter</a>
 </p>
-@if(Model.Recruiters != null)
-{
+<div class="col-md-12">
     <table class="recruitertable">
-    <thead>
-        <tr>
-            <th>
-                <center>First Name</center>
-            </th>
-            <th>
-                <center>Last Name</center>
-            </th>
-            <th>
-                <center>Email</center>
-            </th>
-            <th>
-                <center>Phone Number</center>
-            </th>
-            <th>
-                <center>Company Name</center>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Recruiters)
-        {
+        <thead>
             <tr>
-                <td>
-                    <center>@Html.DisplayFor(modelItem => item.FirstName)</center>
-                </td>
-                <td>
-                    <center>@Html.DisplayFor(modelItem => item.LastName)</center>
-                </td>
-                <td>
-                    <center>@Html.DisplayFor(modelItem => item.Email)</center>
-                </td>
-                <td>
-                    <center>@Html.DisplayFor(modelItem => item.PhoneNumber)</center>
-                </td>
-                <td>
-                    <center>@Html.DisplayFor(modelItem => item.CompanyName)</center>
-                </td>
-                <td>
-                    <a asp-controller="Recruiters" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Recruiters" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="Recruiters" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    <center>First Name</center>
+                </th>
+                <th>
+                    <center>Last Name</center>
+                </th>
+                <th>
+                    <center>Email</center>
+                </th>
+                <th>
+                    <center>Phone Number</center>
+                </th>
+                <th>
+                    <center>Company Name</center>
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
-}
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Recruiters)
+            {
+                <tr>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.FirstName)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.LastName)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.Email)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.PhoneNumber)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.CompanyName)</center>
+                    </td>
+                    <td>
+                        <a asp-controller="Recruiters" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Recruiters" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Recruiters" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <br />
 <p>
     <a asp-controller="JobPostings" asp-action="Create">Add Job Posting</a>
 </p>
-@if (Model.JobPostings != null)
-{
+<div class="col-md-12">
     <table class="jobtable">
         <thead>
             <tr>
@@ -117,28 +125,27 @@
             }
         </tbody>
     </table>
-}
-
-@*foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+</div>
+<script>
+    function getSalaries(title) {
+        $.get("http://localhost:55746/api/averagesalaries" + title, function (data) {
+            var salaries = data;
+            displaySalaries(salaries);
+        })
     }
-        </tbody>*@
+    function displaySalaries(salaries) {
+        $("#salaryDisplay").append(
+            `<tr>
+                <td><strong>City</strong><td>
+                <td><strong>Job Title</strong><td>
+                <td><strong>Average Salary</strong><td>`
+        for(let i = 0; i < salaries.length; i++)
+        {
+            `<tr>
+                <td>${JSON.stringify(salaries[i].city).replace(/\"/g, '')}</td>
+                <td>${JSON.stringify(salaries[i].jobTitle).replace(/\"/g, '')}</td>
+                <td>${JSON.stringify(salaries[i].avgSalary).replace(/\"/g, '')}</td>`
+        }
+    }
+ </script>
 

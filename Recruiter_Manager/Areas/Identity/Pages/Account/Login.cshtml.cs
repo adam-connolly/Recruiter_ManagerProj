@@ -78,79 +78,79 @@ namespace Recruiter_Manager.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                //// This doesn't count login failures towards account lockout
-                //// To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                //if (result.Succeeded)
-                //{
-                //    _logger.LogInformation("User logged in.");
-                //    return LocalRedirect(returnUrl);
-                //}
-                //if (result.RequiresTwoFactor)
-                //{
-                //    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                //}
-                //if (result.IsLockedOut)
-                //{
-                //    _logger.LogWarning("User account locked out.");
-                //    return RedirectToPage("./Lockout");
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                //    return Page();
-                //}
-                if (ModelState.IsValid)
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
                 {
-                    // This doesn't count login failures towards account lockout
-                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                    var info = await _signInManager.GetExternalLoginInfoAsync();
-                    if (info == null)
-                    {
-                        ModelState.AddModelError(string.Empty, "Error loading external login information.");
-                        return Page();
-                    }
-                    var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-                    if (signInResult.Succeeded)
-                    {
-                        _logger.LogInformation("User logged in.");
-                        return LocalRedirect(returnUrl);
-                    }
-                    else
-                    {
-                        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                        if (email != null)
-                        {
-                            var user = await _userManager.FindByEmailAsync(email);
-                            if (user == null)
-                            {
-                                return RedirectToPage("./Register");
-                            }
-                            await _userManager.AddLoginAsync(user, info);
-                            await _signInManager.SignInAsync(user, isPersistent: false);
-                            return LocalRedirect(returnUrl);
-                        }
-                    }
-                    var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                    if (result.Succeeded)
-                    {
-                        _logger.LogInformation("User logged in.");
-                        return LocalRedirect(returnUrl);
-                    }
-                    if (result.RequiresTwoFactor)
-                    {
-                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                    }
-                    if (result.IsLockedOut)
-                    {
-                        _logger.LogWarning("User account locked out.");
-                        return RedirectToPage("./Lockout");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                        return Page();
-                    }
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
+                //if (ModelState.IsValid)
+                {
+                    //// This doesn't count login failures towards account lockout
+                    //// To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                    //var info = await _signInManager.GetExternalLoginInfoAsync();
+                    //if (info == null)
+                    //{
+                    //    ModelState.AddModelError(string.Empty, "Error loading external login information.");
+                    //    return Page();
+                    //}
+                    //var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                    //if (signInResult.Succeeded)
+                    //{
+                    //    _logger.LogInformation("User logged in.");
+                    //    return LocalRedirect(returnUrl);
+                    //}
+                    //else
+                    //{
+                    //    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                    //    if (email != null)
+                    //    {
+                    //        var user = await _userManager.FindByEmailAsync(email);
+                    //        if (user == null)
+                    //        {
+                    //            return RedirectToPage("./Register");
+                    //        }
+                    //        await _userManager.AddLoginAsync(user, info);
+                    //        await _signInManager.SignInAsync(user, isPersistent: false);
+                    //        return LocalRedirect(returnUrl);
+                    //    }
+                    //}
+                    //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    //if (result.Succeeded)
+                    //{
+                    //    _logger.LogInformation("User logged in.");
+                    //    return LocalRedirect(returnUrl);
+                    //}
+                    //if (result.RequiresTwoFactor)
+                    //{
+                    //    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    //}
+                    //if (result.IsLockedOut)
+                    //{
+                    //    _logger.LogWarning("User account locked out.");
+                    //    return RedirectToPage("./Lockout");
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    //    return Page();
+                    //}
                 }
             }
             // If we got this far, something failed, redisplay form
