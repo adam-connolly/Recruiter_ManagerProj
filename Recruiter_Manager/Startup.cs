@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Recruiter_Manager.ActionFilters;
 using Recruiter_Manager.Contracts;
+using Recruiter_Manager.Services;
 
 namespace Recruiter_Manager
 {
@@ -46,6 +47,7 @@ namespace Recruiter_Manager
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<SalaryService>();
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {

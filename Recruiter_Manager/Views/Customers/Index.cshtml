@@ -7,19 +7,18 @@
 
 <h1>Index</h1>
 <div class="salarySearch">
-    <form method="get">
+    <form>
         <span class="form-group">
-            <input class="City" placeholder="City"/>
+            <input class="City" placeholder="City" />
             <input class="JobTitle" placeholder="Job Title" />
+            <button type="submit" class="btn btn-primary btn-sm" onclick="getSalariesByTitle()" style="border-radius: 3px; padding-bottom: 3px;">Compare Salary</button>
         </span>
-        <button type="submit" class="btn btn-primary" onclick="getSalaries()">Compare Salary</button>
+        
     </form>
 </div>
-<div class="salaryDisplay">   
+<div class="salaryDisplay">
 </div>
-<p>
-    <a asp-controller="Recruiters" asp-action="Create">Add New Recruiter</a>
-</p>
+</br>
 <div class="col-md-12">
     <table class="recruitertable">
         <thead>
@@ -70,10 +69,10 @@
         </tbody>
     </table>
 </div>
-<br />
 <p>
-    <a asp-controller="JobPostings" asp-action="Create">Add Job Posting</a>
+    <a asp-controller="Recruiters" asp-action="Create">Add New Recruiter</a>
 </p>
+<br />
 <div class="col-md-12">
     <table class="jobtable">
         <thead>
@@ -126,26 +125,10 @@
         </tbody>
     </table>
 </div>
-<script>
-    function getSalaries(title) {
-        $.get("http://localhost:55746/api/averagesalaries" + title, function (data) {
-            var salaries = data;
-            displaySalaries(salaries);
-        })
-    }
-    function displaySalaries(salaries) {
-        $("#salaryDisplay").append(
-            `<tr>
-                <td><strong>City</strong><td>
-                <td><strong>Job Title</strong><td>
-                <td><strong>Average Salary</strong><td>`
-        for(let i = 0; i < salaries.length; i++)
-        {
-            `<tr>
-                <td>${JSON.stringify(salaries[i].city).replace(/\"/g, '')}</td>
-                <td>${JSON.stringify(salaries[i].jobTitle).replace(/\"/g, '')}</td>
-                <td>${JSON.stringify(salaries[i].avgSalary).replace(/\"/g, '')}</td>`
-        }
-    }
- </script>
+<p>
+    <a asp-controller="JobPostings" asp-action="Create">Add Job Posting</a>
+</p>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/wwwroot/js/app.js"></script>
 

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Recruiter_Manager.Contracts;
 using Recruiter_Manager.Data;
 using Recruiter_Manager.Models;
+using Recruiter_Manager.Services;
 
 namespace Recruiter_Manager.Controllers
 {
@@ -18,11 +19,13 @@ namespace Recruiter_Manager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
+        private SalaryService _salaryService;
 
-        public CustomersController(ApplicationDbContext context, IRepositoryWrapper repo)
+        public CustomersController(ApplicationDbContext context, IRepositoryWrapper repo, SalaryService salaryService)
         {
             _context = context;
             _repo = repo;
+            _salaryService = salaryService;
         }
 
         // GET: Customers
@@ -38,7 +41,6 @@ namespace Recruiter_Manager.Controllers
             customer.JobPostings = _repo.JobPosting.FindByCondition(j => j.CustomerId == customer.Id).ToList();
             return View(customer);
         }
-
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {

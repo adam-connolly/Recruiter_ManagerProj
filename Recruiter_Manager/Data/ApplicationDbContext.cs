@@ -34,5 +34,6 @@ namespace Recruiter_Manager.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Recruiter> Recruiters { get; set; }
         public DbSet<JobPosting> JobPostings { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
     }
 }
