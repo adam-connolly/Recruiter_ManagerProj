@@ -1,5 +1,4 @@
-﻿@page
-@model Recruiter_Manager.Views.Appointments.DetailsModel
+﻿@model Recruiter_Manager.Models.Appointment
 
 @{
     ViewData["Title"] = "Details";
@@ -13,32 +12,32 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Appointment.AppointmentName)
+            @Html.DisplayNameFor(model => model.AppointmentName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Appointment.AppointmentName)
+            @Html.DisplayFor(model => model.AppointmentName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Appointment.AppointmentDate)
+            @Html.DisplayNameFor(model => model.AppointmentDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Appointment.AppointmentDate)
+            @Html.DisplayFor(model => model.AppointmentDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Appointment.AppointmentDetails)
+            @Html.DisplayNameFor(model => model.AppointmentDetails)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Appointment.AppointmentDetails)
+            @Html.DisplayFor(model => model.AppointmentDetails)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Appointment.Customers)
+            @Html.DisplayNameFor(model => model.Customers)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Appointment.Customers.Id)
+            @Html.DisplayFor(model => model.Customers.Id)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Appointment.Id">Edit</a> |
+    <a asp-page="./Edit" asp-route-id="Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

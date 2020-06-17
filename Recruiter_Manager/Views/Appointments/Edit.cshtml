@@ -1,5 +1,4 @@
-﻿@page
-@model Recruiter_Manager.Views.Appointments.EditModel
+﻿@model Recruiter_Manager.Models.Appointment
 
 @{
     ViewData["Title"] = "Edit";
@@ -14,26 +13,26 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Appointment.Id" />
+            <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group">
-                <label asp-for="Appointment.AppointmentName" class="control-label"></label>
-                <input asp-for="Appointment.AppointmentName" class="form-control" />
-                <span asp-validation-for="Appointment.AppointmentName" class="text-danger"></span>
+                <label asp-for="@Model.AppointmentName" class="control-label"></label>
+                <input asp-for="@Model.AppointmentName" class="form-control" />
+                <span asp-validation-for="@Model.AppointmentName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.AppointmentDate" class="control-label"></label>
-                <input asp-for="Appointment.AppointmentDate" class="form-control" />
-                <span asp-validation-for="Appointment.AppointmentDate" class="text-danger"></span>
+                <label asp-for="@Model.AppointmentDate" class="control-label"></label>
+                <input asp-for="@Model.AppointmentDate" class="form-control" />
+                <span asp-validation-for="@Model.AppointmentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.AppointmentDetails" class="control-label"></label>
-                <input asp-for="Appointment.AppointmentDetails" class="form-control" />
-                <span asp-validation-for="Appointment.AppointmentDetails" class="text-danger"></span>
+                <label asp-for="@Model.AppointmentDetails" class="control-label"></label>
+                <input asp-for="@Model.AppointmentDetails" class="form-control" />
+                <span asp-validation-for="@Model.AppointmentDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.CustomerId" class="control-label"></label>
-                <select asp-for="Appointment.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-                <span asp-validation-for="Appointment.CustomerId" class="text-danger"></span>
+                <label asp-for="@Model.CustomerId" class="control-label"></label>
+                <select asp-for="@Model.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                <span asp-validation-for="@Model.CustomerId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

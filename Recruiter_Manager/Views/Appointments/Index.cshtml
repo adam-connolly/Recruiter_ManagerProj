@@ -1,5 +1,4 @@
-﻿@page
-@model Recruiter_Manager.Views.Appointments.IndexModel
+﻿@model IEnumerable<Recruiter_Manager.Models.Appointment>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,22 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].AppointmentName)
+                @Html.DisplayNameFor(model => model.AppointmentName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].AppointmentDate)
+                @Html.DisplayNameFor(model => model.AppointmentDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].AppointmentDetails)
+                @Html.DisplayNameFor(model => model.AppointmentDetails)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Appointment[0].Customers)
+                @Html.DisplayNameFor(model => model.Customers)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Appointment) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.AppointmentName)
