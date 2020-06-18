@@ -1,93 +1,146 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Recruiter_Manager.Contracts;
+using Recruiter_Manager.Data;
+using Recruiter_Manager.Models;
 
 namespace Recruiter_Manager.Controllers
 {
     public class AppointmentsController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private IRepositoryWrapper _repo;
+        public AppointmentsController(ApplicationDbContext context, IRepositoryWrapper repo)
+        {
+            _context = context;
+            _repo = repo;
+        }
         // GET: Appointments
         public ActionResult Index()
         {
-            return View();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _repo.Customer.GetCustomer(userId);
+            var appointments = _context.Appointments.Where(a => a.CustomerId == customer.Id).ToList();
+            return View(appointments);
         }
 
         // GET: Appointments/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var appointment = _context.Appointments.Where(a => a.Id == id).SingleOrDefault();
+            return View(appointment);
         }
 
         // GET: Appointments/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
-            return View();
+            Appointment appointment = new Appointment();
+            return View(appointment);
         }
 
         // POST: Appointments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create([Bind("Id,AppointmentName,AppointmentDate,AppointmentDetails")] Appointment appointment)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var customer = _repo.Customer.GetCustomer(userId);
+                appointment.CustomerId = customer.Id;
+                _context.Add(appointment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Customers");
         }
 
         // GET: Appointments/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var appointment = await _context.Appointments.FindAsync(id);
+            if(appointment == null)
+            {
+                return NotFound();
+            }
+            return View(appointment);
         }
 
         // POST: Appointments/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AppointmentName,AppointmentDate,AppointmentDetails")] Appointment appointment)
         {
-            try
+            if(id != appointment.Id)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var appointmentToUpdate = _context.Appointments.Where(a => a.Id == id).SingleOrDefault();
+            appointmentToUpdate.Id = id;
+            appointmentToUpdate.CustomerId = customer.Id;
+            appointmentToUpdate = UpdateAppointment(appointment, appointmentToUpdate);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Appointments.Update(appointmentToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch(DbUpdateConcurrencyException)
+                {
+                    if (!AppointmentExists(appointment.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                    
+                }
+                return RedirectToAction("Details", "Appointments");
+            }
+            return RedirectToAction("Index","Appointments");
+        }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        private Appointment UpdateAppointment(Appointment appointment, Appointment appointmentToUpdate)
+        {
+            appointmentToUpdate.AppointmentName = appointment.AppointmentName;
+            appointmentToUpdate.AppointmentDate = appointment.AppointmentDate;
+            appointmentToUpdate.AppointmentDetails = appointment.AppointmentDetails;
+            return appointmentToUpdate;
+        }
+
+        private bool AppointmentExists(int id)
+        {
+            return _context.Appointments.Any(a => a.Id == id);
         }
 
         // GET: Appointments/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            var appointment = _context.Appointments.Where(a => a.Id == id);
+            return View(appointment);
         }
 
         // POST: Appointments/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var appointment = await _context.Appointments.FindAsync(id);
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

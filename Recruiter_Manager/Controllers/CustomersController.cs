@@ -78,7 +78,9 @@ namespace Recruiter_Manager.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                customer.IdentityUserId = userId;              
+                var user = _context.Users.Where(u => u.Id == userId).SingleOrDefault();
+                customer.IdentityUserId = userId;
+                customer.Email = user.Email;
                 _repo.Customer.CreateCustomer(customer);
                 _repo.Save();
                 await _context.SaveChangesAsync();
@@ -91,12 +93,8 @@ namespace Recruiter_Manager.Controllers
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _repo.Customer.GetCustomer(userId);
             if (customer == null)
             {
                 return NotFound();

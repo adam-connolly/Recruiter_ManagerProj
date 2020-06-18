@@ -1,11 +1,29 @@
 ﻿@model Recruiter_Manager.Models.Customer
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard | Recruiter Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+        thead{
+            background-color: #f2f2f2;
+        }
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
 
-<h1>Index</h1>
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+<h1>Dashboard</h1>
 <div class="salarySearch">
     <form>
         <span class="form-group">
@@ -16,12 +34,12 @@
         
     </form>
 </div>
-<div><button type="submit" class="btn btn-primary btn-sm" onclick="getSalariesByTitle()" style="border-radius: 3px; padding-bottom: 3px;">Compare Salary</button></div>
+<div><button type="submit" class="btn btn-primary btn-sm" onclick="getSalariesByTitle()" style="border-radius: 3px; border-spacing: 3px;">Compare Salary</button></div>
 <div class="salaryDisplay">
 </div>
 </br>
-<div class="col-md-12">
-    <table class="recruitertable">
+<div>
+    <table class="recruitertable" style="overflow-x: auto; overflow-y: auto;">
         <thead>
             <tr>
                 <th>
@@ -39,6 +57,7 @@
                 <th>
                     <center>Company Name</center>
                 </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -74,8 +93,8 @@
     <a asp-controller="Recruiters" asp-action="Create">Add New Recruiter</a>
 </p>
 <br />
-<div class="col-md-12">
-    <table class="jobtable">
+<div>
+    <table class="jobtable" style="overflow-x: auto; overflow-y: auto;">
         <thead>
             <tr>
                 <th>
@@ -120,7 +139,7 @@
                         <a asp-controller="JobPostings" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-controller="JobPostings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
-                    <td></td>
+                    
                 </tr>
             }
         </tbody>

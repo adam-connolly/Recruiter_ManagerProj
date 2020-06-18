@@ -3,28 +3,63 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Recruiter_Manager</title>
+    <title>@ViewData["Title"] - Recruiter Manager</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        thead {
+            background-color: #f2f2f2;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container text-light">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Recruiter_Manager</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Recruiter Manager</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse text-light">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (User.IsInRole("Customer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Customers" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Appointments" asp-action="Index">Upcoming Appointments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Customers" asp-action="Edit">Edit Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Customers" asp-action="Details">Profile Details</a>
+                            </li>
+                        }
+                        else
+                        {
+
+                        }
+
                     </ul>
                 </div>
             </div>
