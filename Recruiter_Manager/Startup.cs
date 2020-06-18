@@ -56,6 +56,7 @@ namespace Recruiter_Manager
 
                     options.ClientId = "915243713190-p7lmfaotbeokpsqm0grshrbuhs6fe5ur.apps.googleusercontent.com";
                     options.ClientSecret = "g2NQIzcj7BPtv8_ueMKss8A4";
+                    //options.CallbackPath = "";
                 });
         }
 

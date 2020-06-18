@@ -48,8 +48,8 @@ namespace Recruiter_Manager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef2cac8a-fa00-4785-93e5-00209c56005f",
-                            ConcurrencyStamp = "0cad8e0e-51c3-4d0c-825a-982360608f65",
+                            Id = "d8e0985c-1f46-436b-9f21-ecbdc64a01aa",
+                            ConcurrencyStamp = "81bcc083-e4f9-4f1d-9b6a-36a0ba81a4d6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -267,6 +267,9 @@ namespace Recruiter_Manager.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

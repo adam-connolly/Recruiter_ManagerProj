@@ -11,8 +11,11 @@ namespace Recruiter_Manager.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name="Appointment Name")]
         public string AppointmentName { get; set; }
+        [Display(Name="Appointment Date")]
         public DateTime AppointmentDate { get; set; }
+        [Display(Name="Appointment Details")]
         public string AppointmentDetails { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }

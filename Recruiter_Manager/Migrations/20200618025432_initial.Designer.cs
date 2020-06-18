@@ -10,14 +10,14 @@ using Recruiter_Manager.Data;
 namespace Recruiter_Manager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200607141706_initial")]
+    [Migration("20200618025432_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -50,8 +50,8 @@ namespace Recruiter_Manager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "98b372ae-b0a5-44a2-abcd-6fff6d6406bf",
-                            ConcurrencyStamp = "8dfdd747-f786-4dc3-9343-07d31c70fea2",
+                            Id = "d8e0985c-1f46-436b-9f21-ecbdc64a01aa",
+                            ConcurrencyStamp = "81bcc083-e4f9-4f1d-9b6a-36a0ba81a4d6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -226,6 +226,32 @@ namespace Recruiter_Manager.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Recruiter_Manager.Models.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AppointmentDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppointmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("Recruiter_Manager.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -243,6 +269,9 @@ namespace Recruiter_Manager.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -384,6 +413,15 @@ namespace Recruiter_Manager.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Recruiter_Manager.Models.Appointment", b =>
+                {
+                    b.HasOne("Recruiter_Manager.Models.Customer", "Customers")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

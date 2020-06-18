@@ -54,7 +54,7 @@ namespace Recruiter_Manager.Controllers
                 appointment.CustomerId = customer.Id;
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Customers");
+                return RedirectToAction("Index", "Appointments");
         }
 
         // GET: Appointments/Edit/5
@@ -128,7 +128,7 @@ namespace Recruiter_Manager.Controllers
         // GET: Appointments/Delete/5
         public ActionResult Delete(int? id)
         {
-            var appointment = _context.Appointments.Where(a => a.Id == id);
+            var appointment = _context.Appointments.Where(a => a.Id == id).SingleOrDefault();
             return View(appointment);
         }
 

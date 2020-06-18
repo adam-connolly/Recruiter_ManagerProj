@@ -73,7 +73,7 @@ namespace Recruiter_Manager.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,PhoneNumber,IdentityUserId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +81,7 @@ namespace Recruiter_Manager.Controllers
                 var user = _context.Users.Where(u => u.Id == userId).SingleOrDefault();
                 customer.IdentityUserId = userId;
                 customer.Email = user.Email;
+                customer.PhoneNumber = StandardizePhoneNumber(customer.PhoneNumber);
                 _repo.Customer.CreateCustomer(customer);
                 _repo.Save();
                 await _context.SaveChangesAsync();
@@ -108,7 +109,7 @@ namespace Recruiter_Manager.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,PhoneNumber,IdentityUserId")] Customer customer)
         {
             if (id != customer.Id)
             {
@@ -172,6 +173,28 @@ namespace Recruiter_Manager.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);
+        }
+        private string StandardizePhoneNumber(string phoneNumber)
+        {
+            var contactNumber = "";
+            phoneNumber.ToCharArray();
+            if (phoneNumber[0] != '+')
+            {
+                contactNumber += "+";
+            }
+            for (int i = 0; i < phoneNumber.Length; i++)
+            {
+                if (phoneNumber[i] == '-' || phoneNumber[i] == '(' || phoneNumber[i] == ')' || phoneNumber[i] == ' ')
+                {
+
+                }
+                else
+                {
+                    contactNumber += phoneNumber[i];
+                }
+            }
+
+            return contactNumber;
         }
     }
 }
