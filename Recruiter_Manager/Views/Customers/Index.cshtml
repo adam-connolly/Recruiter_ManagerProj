@@ -145,6 +145,47 @@
 <p>
     <a asp-controller="JobPostings" asp-action="Create">Add Job Posting</a>
 </p>
+<center><h5>Upcoming Appointments</h5></center>
+<div>
+    <table class="apptTable" style="overflow-x: auto; overflow-y: auto;">
+        <thead>
+            <tr>
+                <th>
+                    <center>Appointment Date</center>
+                </th>
+                <th>
+                    <center>Appointment Name</center>
+                </th>
+                <th>
+                    <center>Appointment Details</center>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.UpcomingAppointments)
+            {
+                <tr>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.AppointmentDate)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.AppointmentName)</center>
+                    </td>
+                    <td>
+                        <center>@Html.DisplayFor(modelItem => item.AppointmentDetails)</center>
+                    </td>
+                    <td>
+                        <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Appointments" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Appointments" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 

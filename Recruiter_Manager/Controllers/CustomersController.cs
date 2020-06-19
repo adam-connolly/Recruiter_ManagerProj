@@ -39,6 +39,8 @@ namespace Recruiter_Manager.Controllers
             }
             customer.Recruiters = _repo.Recruiter.FindByCondition(r => r.CustomerId == customer.Id).ToList();
             customer.JobPostings = _repo.JobPosting.FindByCondition(j => j.CustomerId == customer.Id).ToList();
+            customer.UpcomingAppointments = _context.Appointments.Where(a => a.CustomerId == customer.Id).ToList();
+            customer.UpcomingAppointments = GetNextWeekAppointments(customer);
             return View(customer);
         }
         // GET: Customers/Details/5
@@ -199,6 +201,19 @@ namespace Recruiter_Manager.Controllers
             }
 
             return contactNumber;
+        }
+        private IEnumerable<Appointment> GetNextWeekAppointments(Customer customer)
+        {
+            var appts = new List<Appointment>();
+            foreach(var appt in customer.UpcomingAppointments)
+            {
+                if(appt.AppointmentDate.Day >= DateTime.Today.Day && appt.AppointmentDate.Day <= (DateTime.Today.Day + 7))
+                {
+                    appts.Add(appt);
+                }
+            }
+            customer.UpcomingAppointments = appts;
+            return customer.UpcomingAppointments;
         }
     }
 }

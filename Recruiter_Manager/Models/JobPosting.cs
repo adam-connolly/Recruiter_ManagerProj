@@ -27,7 +27,7 @@ namespace Recruiter_Manager.Models
         [Display(Name = "Posted Compensation")]
         public string PostedComp { get; set; }
         [Display(Name = "Date Applied")]
-        public DateTime DateApplied { get; set; }
+        public DateTime? DateApplied { get; set; }
         [Display(Name = "Application Status")]
         public string ApplicationStatus { get; set; }
         [Display(Name = "Conversation Notes")]
@@ -47,6 +47,7 @@ namespace Recruiter_Manager.Models
         {
             ApplicationStatuses = new List<SelectListItem>()
             {
+                new SelectListItem() { Text = "", Value = "0"},
                 new SelectListItem() { Text = "Application Submitted", Value = "1" },
                 new SelectListItem() { Text = "Application Under Review", Value = "2" },
                 new SelectListItem() { Text = "Interview Set", Value = "3" },

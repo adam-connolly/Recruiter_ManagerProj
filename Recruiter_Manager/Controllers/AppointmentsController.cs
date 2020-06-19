@@ -110,7 +110,7 @@ namespace Recruiter_Manager.Controllers
                     }
                     
                 }
-                return RedirectToAction("Details", "Appointments");
+                return RedirectToAction("Index", "Appointments");
             }
             return RedirectToAction("Index","Appointments");
         }

@@ -234,7 +234,7 @@ namespace Recruiter_Manager.Migrations
                     InterviewerPhoneNumber = table.Column<string>(nullable: true),
                     CompanyName = table.Column<string>(nullable: true),
                     PostedComp = table.Column<string>(nullable: true),
-                    DateApplied = table.Column<DateTime>(nullable: false),
+                    DateApplied = table.Column<DateTime>(nullable: true),
                     ApplicationStatus = table.Column<string>(nullable: true),
                     ConversationNotes = table.Column<string>(nullable: true),
                     RecruiterId = table.Column<int>(nullable: true),
@@ -260,7 +260,7 @@ namespace Recruiter_Manager.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b3a3211a-5e03-4203-b263-693b260fdb2a", "e20c94e5-c7e4-4a6b-aae3-d2d1bdf745df", "Customer", "CUSTOMER" });
+                values: new object[] { "7723399e-f412-4f8e-9b26-dec90460d6b3", "b55fd85d-22e0-4567-b444-66e419354803", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_CustomerId",

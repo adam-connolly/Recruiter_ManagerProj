@@ -48,8 +48,8 @@ namespace Recruiter_Manager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3a3211a-5e03-4203-b263-693b260fdb2a",
-                            ConcurrencyStamp = "e20c94e5-c7e4-4a6b-aae3-d2d1bdf745df",
+                            Id = "7723399e-f412-4f8e-9b26-dec90460d6b3",
+                            ConcurrencyStamp = "b55fd85d-22e0-4567-b444-66e419354803",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -298,7 +298,7 @@ namespace Recruiter_Manager.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateApplied")
+                    b.Property<DateTime?>("DateApplied")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InterviewerEmail")

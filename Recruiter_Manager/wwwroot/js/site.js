@@ -6,9 +6,9 @@ function getSalariesByTitle(e) {
         $("#salaryDisplay").append(
             `<thead>
                     <tr>
-                        <th>City<th>
-                        <th>Job Title<th>
-                        <th>Average Salary<th>
+                        <th>City</th>
+                        <th>Job Title</th>
+                        <th>Average Salary</th>
                     </tr>
                 </thead>`
         );

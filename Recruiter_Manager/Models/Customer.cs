@@ -23,6 +23,8 @@ namespace Recruiter_Manager.Models
         public IEnumerable<Recruiter> Recruiters { get; set; }
         [NotMapped]
         public IEnumerable<JobPosting> JobPostings { get; set; }
+        [NotMapped]
+        public IEnumerable<Appointment> UpcomingAppointments { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

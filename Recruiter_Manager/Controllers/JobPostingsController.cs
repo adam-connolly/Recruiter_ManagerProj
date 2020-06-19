@@ -94,7 +94,7 @@ namespace Recruiter_Manager.Controllers
                 return NotFound();
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", job.CustomerId);
-            job.AppStatus = new SelectList(job.ApplicationStatuses, "Value", "Text");
+            job.AppStatus = new SelectList(job.ApplicationStatuses, "Text", "Text");
             return View(job);
         }
 
