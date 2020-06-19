@@ -16,7 +16,9 @@ namespace Recruiter_Manager.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         public string Email { get; set; }
+        [Display(Name="Phone Number")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
