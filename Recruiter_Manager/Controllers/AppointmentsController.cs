@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Recruiter_Manager.Contracts;
 using Recruiter_Manager.Data;
 using Recruiter_Manager.Models;
+using Recruiter_Manager.Services;
 
 namespace Recruiter_Manager.Controllers
 {
@@ -52,6 +53,7 @@ namespace Recruiter_Manager.Controllers
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var customer = _repo.Customer.GetCustomer(userId);
                 appointment.CustomerId = customer.Id;
+                TwilioService.SendTextMessage(customer, appointment);
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Appointments");
@@ -92,6 +94,7 @@ namespace Recruiter_Manager.Controllers
             {
                 try
                 {
+                    TwilioService.SendTextMessage(customer, appointment);
                     _context.Appointments.Update(appointmentToUpdate);
                     await _context.SaveChangesAsync();
                 }
