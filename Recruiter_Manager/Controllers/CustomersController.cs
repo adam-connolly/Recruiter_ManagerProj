@@ -83,7 +83,6 @@ namespace Recruiter_Manager.Controllers
                 customer.Email = user.Email;
                 customer.PhoneNumber = StandardizePhoneNumber(customer.PhoneNumber);
                 _repo.Customer.CreateCustomer(customer);
-                _repo.Save();
                 await _context.SaveChangesAsync();
                 
             }
@@ -120,6 +119,7 @@ namespace Recruiter_Manager.Controllers
             {
                 try
                 {
+                    StandardizePhoneNumber(customer.PhoneNumber);
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
@@ -137,7 +137,7 @@ namespace Recruiter_Manager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            return RedirectToAction("Edit", "Customers");
         }
 
         // GET: Customers/Delete/5
@@ -181,6 +181,10 @@ namespace Recruiter_Manager.Controllers
             if (phoneNumber[0] != '+')
             {
                 contactNumber += "+";
+            }
+            if(phoneNumber[0] != '1')
+            {
+                contactNumber += "1";
             }
             for (int i = 0; i < phoneNumber.Length; i++)
             {

@@ -260,7 +260,7 @@ namespace Recruiter_Manager.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d8e0985c-1f46-436b-9f21-ecbdc64a01aa", "81bcc083-e4f9-4f1d-9b6a-36a0ba81a4d6", "Customer", "CUSTOMER" });
+                values: new object[] { "b3a3211a-5e03-4203-b263-693b260fdb2a", "e20c94e5-c7e4-4a6b-aae3-d2d1bdf745df", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_CustomerId",

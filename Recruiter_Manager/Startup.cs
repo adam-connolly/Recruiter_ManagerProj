@@ -48,16 +48,17 @@ namespace Recruiter_Manager
             services.AddRazorPages();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<SalaryService>();
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    IConfigurationSection googleAuthNSection =
-                        Configuration.GetSection("Authentication:Google");
+            services.AddScoped<TwilioService>();
+            services.AddAuthentication();
+                //.AddGoogle(options =>
+                //{
+                //    IConfigurationSection googleAuthNSection =
+                //        Configuration.GetSection("Authentication:Google");
 
-                    options.ClientId = "915243713190-p7lmfaotbeokpsqm0grshrbuhs6fe5ur.apps.googleusercontent.com";
-                    options.ClientSecret = "g2NQIzcj7BPtv8_ueMKss8A4";
-                    //options.CallbackPath = "";
-                });
+                //    options.ClientId = "915243713190-p7lmfaotbeokpsqm0grshrbuhs6fe5ur.apps.googleusercontent.com";
+                //    options.ClientSecret = "g2NQIzcj7BPtv8_ueMKss8A4";
+                //    //options.CallbackPath = "";
+                //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
